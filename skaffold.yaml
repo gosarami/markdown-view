@@ -1,0 +1,46 @@
+apiVersion: skaffold/v3
+kind: Config
+metadata:
+  name: markdown-view
+build:
+  artifacts:
+  - image: localhost:5001/controller
+    docker:
+      dockerfile: Dockerfile
+  #local:
+  #  push: false
+manifests:
+  kustomize:
+    paths:
+    - config/default
+#profiles:
+#- name: crd
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/crd
+#- name: default
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/default
+#- name: manager
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/manager
+#- name: prometheus
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/prometheus
+#- name: rbac
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/rbac
+#- name: webhook
+#  manifests:
+#    kustomize:
+#      paths:
+#      - config/webhook

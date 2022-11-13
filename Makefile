@@ -96,6 +96,18 @@ docker-buildx: test ## Build and push docker image for the manager for cross-pla
 	- docker buildx rm project-v3-builder
 	rm Dockerfile.cross
 
+#! [kind]
+.PHONY: start
+start: ## Start local Kubernetes cluster
+	ctlptl apply -f ./cluster.yaml
+	kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/latest/download/cert-manager.yaml
+	kubectl -n cert-manager wait --for=condition=available --timeout=180s --all deployments
+
+.PHONY: stop
+stop: ## Stop local Kubernetes cluster
+	ctlptl delete -f ./cluster.yaml
+#! [kind]
+
 ##@ Deployment
 
 ifndef ignore-not-found

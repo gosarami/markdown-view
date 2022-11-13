@@ -70,7 +70,9 @@ spec:
         - /manager
         args:
         - --leader-elect
-        image: controller:latest
+        image: localhost:5001/controller:latest
+        imagePullPolicy: IfNotPresent
+        #imagePullPolicy: Never
         name: manager
         securityContext:
           allowPrivilegeEscalation: false
